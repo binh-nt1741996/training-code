@@ -32,7 +32,7 @@ def costFunction(theta, dataX, dataY):
 
 def optimizeWithSCIPY(dataX, dataY, theta):
     #set options for optimize.minimize
-    options = {"maxiter" : 400}
+    options = {"maxiter" : 100}
 
     #Scipy optimize.minimize function
     res = optimize.minimize(costFunction, 
@@ -50,7 +50,13 @@ def optimizeWithSCIPY(dataX, dataY, theta):
     print(f"Theta : \n {grad}")
     return grad
 
+def predict(theta, dataX):
+    size = dataX.shape[0]
+    p = np.zeros(size)
+    p = np.round(sigmoid(dataX, theta))
 
+    return p
+    
 if __name__ == "__main__":
     data = np.genfromtxt("ex2data1.txt", delimiter = ",")
     dataX = data[:, :2]
@@ -74,3 +80,11 @@ if __name__ == "__main__":
     theta = optimizeWithSCIPY(dataX, dataY, null_theta)
     utils.plotDecisionBoundary(plotData, theta, dataX, dataY)
     plt.show()
+
+    #Predict students with score 45 and 85
+    prob = sigmoid([1, 45, 85], theta)
+    print(f"For a student with scores 45 and 85, we predict an admission probability of {prob:.2f}")
+
+    #Compute the training accuracy
+    p = predict(theta, dataX)
+    print(f"Train Accuracy is {np.mean(p == dataY) * 100}")

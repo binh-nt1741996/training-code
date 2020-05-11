@@ -67,7 +67,6 @@ def plotDecisionBoundary(plotData, theta, X, y):
 
     # Plot Data (remember first column in X is the intercept)
     plotData(X[:, 1:3], y)
-
     if X.shape[1] <= 3:
         # Only need 2 points to define a line, so choose two endpoints
         plot_x = np.array([np.min(X[:, 1]) - 2, np.max(X[:, 1]) + 2])
