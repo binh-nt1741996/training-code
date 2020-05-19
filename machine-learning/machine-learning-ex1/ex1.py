@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import pandas as pd 
 
+#--------DATA1--------#
 """def gradientDescent(dataX, dataY, theta, iter, alpha):
     J_history = []
     size = len(dataY)
@@ -54,7 +55,55 @@ if __name__ == "__main__":
     plt.show()
     
 """
-data = np.genfromtxt("ex1data2.txt", delimiter = ",")
-dataX = data[:, :2]
-dataY = data[:, 2]
-print(np.mean(dataX, axis = 1))
+
+#--------DATA2---------#
+#LINEAR REGRESSION WITH MULTIPLE VARIABLES#
+def featureNormalization(arr):
+    return (arr - np.mean(arr, axis = 0)) / np.std(arr, axis = 0)
+
+def gradientDescent(dataX, dataY, theta, iter, alpha):
+    J_history = []
+    size = len(dataY)
+    for i in range(iter):
+        theta = theta - (alpha / size) * (np.dot(dataX, theta) - dataY).dot(dataX)
+        J_history.append(computeCost(dataX, dataY, theta))
+    return theta, J_history
+
+def computeCost(dataX, dataY, theta):
+    #hypothesis
+    h = np.dot(dataX, theta)
+    size = len(dataY)
+    #return the cost function
+    return (1 / (2 * size)) * np.sum(np.square(h - dataY))
+
+def plotLearningRate(J_history, alpha):
+    plt.plot(alpha, J_history, "b")
+    plt.tight_layout()
+    plt.yscale("log")
+    plt.xlabel("Number of iterations")
+    plt.ylabel("Cost J")
+
+if __name__ == "__main__":
+    data = np.genfromtxt("ex1data2.txt", delimiter = ",")
+    dataX = data[:, :2]
+    dataY = data[:, 2]
+    size = len(dataY)
+
+    #feature normalization
+    dataX = featureNormalization(dataX)
+    dataY = featureNormalization(dataY)
+
+    #combine vector 1's to dataX
+    one = np.ones(size).reshape(size, 1)
+    dataX = np.concatenate((one, dataX), axis = 1)
+    theta = np.arange(3)
+    
+    #initialize theta
+    theta = np.zeros(3)
+
+    #gradient descent
+    theta, J_history = gradientDescent(dataX, dataY, theta, 1000, 0.5)
+    alpha = np.linspace(0,2,11)
+    print(alpha)
+    
+    
