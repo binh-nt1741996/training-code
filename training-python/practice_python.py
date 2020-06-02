@@ -6,7 +6,7 @@ between 2000 and 3200 (both included).
 The numbers obtained should be printed in a 
 comma-separated sequence on a single line.
 
-
+"""
 def Q1(left, right):
     arr = range(left, right + 1)
     return [x for x in arr if (x%7 == 0) and (x%5 != 0)]
@@ -16,8 +16,6 @@ if __name__ == "__main__":
     arr_input = list(map(int, input("Enter the range for the array: ").split(", ")))
     result = Q1(arr_input[0], arr_input[1])
     print(",".join(map(str, result)))
-
-"""
 
 """
 Q2
@@ -48,10 +46,8 @@ such that is an integral number between 1 and n
 (both included). and then the program should print 
 the dictionary.
 
-
 def Q3(num):
     return {i : i**2 for i in range(1, num)}
-
 
 if __name__ == "__main__":
     num_input = int(input("Enter an integer: "))
@@ -152,7 +148,7 @@ if __name__ == "__main__":
 """
 Daily Coding Problem
 """
-
+"""
 def func(arr, key, i, counter):
     if (i >= len(arr) or counter > 3):
         return False
@@ -167,3 +163,4 @@ if __name__ == "__main__":
     key = 327
     arr = [20, 303, 3, 4, 25]
     print(func(arr, key, 0, counter))
+"""
