@@ -1,4 +1,6 @@
 public class Book{
     private String name;
-    private 
+    public void sth(){
+    	System.out.println("Hello");
+    }
 }
