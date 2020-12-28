@@ -16,12 +16,15 @@ public class uniqueStr {
         }
         return true;
     }
+    
+    /*
     //Using normal array
-    /*boolean isUniqueStr(String str){
-        boolean[] char_set = new boolean[128];
+    static boolean isUniqueStr(String str){
+        int[] char_set = new int[128];
         for (int i = 0; i < str.length(); i++){
             int val = str.charAt(i);
-            if (char_set[val]){
+            char_set[val]++;
+            if (char_set[val] > 1){
                 return false;
             }
         }
