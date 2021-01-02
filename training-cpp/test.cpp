@@ -1,14 +1,17 @@
 #include<iostream>
-#include<string>
+#include<vector>
+#include<array>
 
 using namespace std;
 
-int sizeArray(int[]& arr){
-
+int func(int& x){
+    return x;
 }
 int main(int argc, char const *argv[])
 {
-    char a = 'a';
-    cout << static_cast<int>(a) << endl;
+    int (*funcPtr)(int&) = &func;
+    int b = 5;
+    int a = (*funcPtr)(b);
+    cout << a << endl;
     return 0;
 }
