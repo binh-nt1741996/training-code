@@ -17,12 +17,17 @@ public class Percolation {
         if (n <= 0) throw new IllegalArgumentException("N must be > 0");
         siteSize = n;
         siteSquare = n * n;
+        noOpenSites = 0;
+
+        // initialize all blocked sites
         sites = new boolean[siteSize][siteSize];
+
         wqfTopBottom = new WeightedQuickUnionUF(siteSquare + 2);
         wqfTop = new WeightedQuickUnionUF(siteSquare + 1);
+        
+        // declare virtualTop and virtualBottom
         virtualTop = siteSquare;
         virtualBottom = siteSquare + 1;
-        noOpenSites = 0;
     }
 
     private void validate(int row, int col) {
@@ -32,7 +37,7 @@ public class Percolation {
     }
 
     private boolean insideSite(int row, int col){
-        return row >= 1 && col >= 1 && row <= siteSize - 1 && col <= siteSize - 1;
+        return row >= 1 && col >= 1 && row <= siteSize && col <= siteSize;
     }
 
     private int flatIndex(int row, int col){
@@ -50,7 +55,7 @@ public class Percolation {
         int index = flatIndex(row, col);
 
         // the site is not opened
-        if (!isOpen(row, col)) return;
+        if (isOpen(row, col)) return;
 
         sites[row - 1][col - 1] = true;
         noOpenSites++;
